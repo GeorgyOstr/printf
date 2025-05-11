@@ -1,0 +1,8 @@
+a.out
+*.o
+*.a
+.vscode
+test*
+libft-tester-tokyo
+libft.so
+*.swp
