@@ -6,7 +6,7 @@
 /*   By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 11:06:55 by gostroum          #+#    #+#             */
-/*   Updated: 2025/05/11 15:58:28 by gostroum         ###   ########.fr       */
+/*   Updated: 2025/05/11 20:36:55 by gostroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,25 +35,21 @@ static int	ft_putstr(const char *s)
 	return (i);
 }
 
-static int	ft_putnumber(int n)
+static int	ft_putnumber(long n)
 {
-	long	ln;
 	int		ans;
 
 	ans = 0;
-	ln = n;
-	if (ln == 0)
+	if (n == 0)
 		return (ft_putchar('0'));
-	if (ln < 0)
+	if (n < 0)
 	{
-		ft_putchar('-');
-		ln = -ln;
-		ans += 1;
+		ans += ft_putchar('-');
+		n = -n;
 	}
-	if (ln > 10)
-		ans += ft_putnumber(ln / 10);
-	ans += 1;
-	ft_putchar(ln % 10 + '0');
+	if (n >= 10)
+		ans += ft_putnumber(n / 10);
+	ans += ft_putchar(n % 10 + '0');
 	return (ans);
 }
 
@@ -68,28 +64,46 @@ static int	ft_puthex(int n, int c)
 		return (ft_putchar('0'));
 	if (ln < 0)
 	{
-		ft_putchar('-');
+		ans += ft_putchar('-');
 		ln = -ln;
-		ans += 1;
 	}
-	if (ln > 16)
+	if (ln >= 16)
 		ans += ft_puthex(ln / 16, c);
 	ans += 1;
 	if (!c)
-		ft_putchar("0123456789abcdef"[ln % 16]);
+		ans += ft_putchar("0123456789abcdef"[ln % 16]);
 	else
-		ft_putchar("0123456789ABCDEF"[ln % 16]);
+		ans += ft_putchar("0123456789ABCDEF"[ln % 16]);
 	return (ans);
 }
 
-static int	ft_putpointer(const void *s)
-{
-	size_t	s_conv;
+#include <string.h> 
 
+static int	ft_putptr(const void *s)
+{
+	unsigned char	s_conv[8];
+	int		i;
+	int		ans;	
+	unsigned char	*s_src;
+
+	ans = 0;
+	s_src = (unsigned char *)&s;
 	if (!s)
 		return (ft_putstr("(null)"));
-	s_conv = (size_t)s;
-	return (ft_putstr("0x") + ft_puthex(s_conv, 0) + ft_putchar('x'));
+	i = 0;	
+	while (i < 6)
+	{	
+		s_conv[i] = s_src[i];
+		i++;
+	}
+	i = 0;
+	ans += ft_putstr("0x");
+	while (i < 6)
+	{
+		ans += ft_puthex(s_conv[i], 0);
+		i++;
+	}
+	return (ans);
 }
 
 int	ft_printf(const char *str, ...)
@@ -116,13 +130,11 @@ int	ft_printf(const char *str, ...)
 			else if (str[i] == 's')
 				ans += ft_putstr(va_arg(args, char *));
 			else if (str[i] == 'p')
-				ans += ft_putpointer(va_arg(args, void *));
-			else if (str[i] == 'd')
-				ans += ft_putnumber(va_arg(args, int) % 10);
-			else if (str[i] == 'i')
+				ans += ft_putptr(va_arg(args, void *));
+			else if (str[i] == 'd' || str[i] == 'i')
 				ans += ft_putnumber(va_arg(args, int));
 			else if (str[i] == 'u')
-				ans += ft_putnumber(va_arg(args, int));
+				ans += ft_putnumber(va_arg(args, unsigned int));
 			else if (str[i] == 'x')
 				ans += ft_puthex(va_arg(args, int), 0);
 			else if (str[i] == 'X')
@@ -133,7 +145,9 @@ int	ft_printf(const char *str, ...)
 	return (ans);
 }
 
+/*
 #include <stdlib.h>
+#include <limits.h>
 int	main(void)
 {
 	void	*p;
@@ -147,16 +161,15 @@ int	main(void)
 	i[2] = ft_printf("Print char: %c\n", 'X');
 	i[3] = ft_printf("Print string: %s\n", "COOL");
 	i[4] = ft_printf("Print pointer: %p hmm\n", p);
-	i[5] = ft_printf("Print dec = %d, num = %i \n", 9, -2147483648);
-	i[6] = ft_printf("Print hex = %x, HEX = %X \n", 12, 24532);
+	i[5] = ft_printf("Print i1 = %i, num = %i \n", 10, INT_MIN);
+	i[6] = ft_printf("Print hex = %x, HEX = %X \n", -12, 24532);
 	
 	i[7] = printf("Print percent: %% \n");
 	i[8] = printf("Print char: %c\n", 'X');
 	i[9] = printf("Print string: %s\n", "COOL");
 	i[10] = printf("Print pointer: %p hmm\n", p);
-	i[11] = printf("Print dec = %d, num = %i \n", 9, -2147483647);
-	i[12] = printf("Print hex = %x, HEX = %X \n", 12, 24532);
-	printf("%s", NULL);	
+	i[11] = printf("Print i1 = %i, num = %i \n", 10, INT_MIN);
+	i[12] = printf("Print hex = %x, HEX = %X \n", -12, 24532);
 	j = 0;
 	while (j < 13)
 	{
@@ -166,4 +179,4 @@ int	main(void)
 	free(p);
 	free(i);
 	return (0);
-}
+}*/
