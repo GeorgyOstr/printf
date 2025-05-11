@@ -6,7 +6,7 @@
 /*   By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 11:06:55 by gostroum          #+#    #+#             */
-/*   Updated: 2025/05/11 15:17:51 by gostroum         ###   ########.fr       */
+/*   Updated: 2025/05/11 15:48:41 by gostroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,134 +16,161 @@
 
 #include <stdio.h>
 
-static void	ft_putchar(char c)
+static int	ft_putchar(char c)
 {
-	write(1, &c, 1);
+	if (write(1, &c, 1))
+		return (1);
+	return (0);
 }
 
-static void	ft_putstr(const char *s)
+static int	ft_putstr(const char *s)
 {
+	int	i;
+
 	if (!s)
-		return ;
+		return 0;
+	i = 0;
 	while (*s)
-		ft_putchar(*(s++));
+		i += ft_putchar(*(s++));
+	return (i);
 }
 
-static void	ft_putnumber(int n)
+static int	ft_putnumber(int n)
 {
 	long	ln;
+	int		ans;
 
+	ans = 0;
 	ln = n;
 	if (ln == 0)
 	{
 		ft_putchar('0');
-		return ;
+		return 1;
 	}
 	if (ln < 0)
 	{
 		ft_putchar('-');
 		ln = -ln;
+		ans += 1;
 	}
 	if (ln > 10)
-		ft_putnumber(ln / 10);
+		ans += ft_putnumber(ln / 10);
+	ans += 1;
 	ft_putchar(ln % 10 + '0');
+	return (ans);
 }
 
-static void	ft_puthex(int n, int c)
+static int	ft_puthex(int n, int c)
 {
 	long	ln;
+	int		ans;
 
 	ln = n;
+	ans = 0;
 	if (ln == 0)
 	{
 		ft_putchar('0');
-		return ;
+		return 1;
 	}
 	if (ln < 0)
 	{
 		ft_putchar('-');
 		ln = -ln;
+		ans += 1;
 	}
 	if (ln > 16)
-		ft_puthex(ln / 16, c);
+		ans += ft_puthex(ln / 16, c);
+	ans += 1;
 	if (!c)
 		ft_putchar("0123456789abcdef"[ln % 16]);
 	else
 		ft_putchar("0123456789ABCDEF"[ln % 16]);
+	return (ans);
 }
 
-static void	ft_putpointer(const void *s)
+static int	ft_putpointer(const void *s)
 {
 	size_t	s_conv;
 
+	if (!s)
+		return ft_putstr("(null)");
 	s_conv = (size_t)s;
-	ft_putstr("0x");
-	ft_puthex(s_conv, 0);
-	ft_putchar('x');
+	return (ft_putstr("0x") + ft_puthex(s_conv, 0) + ft_putchar('x'));
 }
 
 int	ft_printf(const char *str, ...)
 {
 	va_list	args;
 	int		i;
+	int		ans;
 
 	i = 0;
+	ans = 0;
 	va_start(args, str);
 	while (str[i])
 	{
 		while (str[i] && str[i] != '%')
-			ft_putchar(str[i++]);
+			ans += ft_putchar(str[i++]);
 		if (str[i] && str[i] == '%')
 		{
 			if (!str[++i])
-				return (1);
+				return (ans);
 			else if (str[i] == '%')
-				ft_putchar('%');
+				ans += ft_putchar('%');
 			else if (str[i] == 'c')
-				ft_putchar((char)va_arg(args, int));
+				ans += ft_putchar((char)va_arg(args, int));
 			else if (str[i] == 's')
-				ft_putstr(va_arg(args, char *));
+				ans += ft_putstr(va_arg(args, char *));
 			else if (str[i] == 'p')
-				ft_putpointer(va_arg(args, void *));
+				ans += ft_putpointer(va_arg(args, void *));
 			else if (str[i] == 'd')
-				ft_putnumber(va_arg(args, int) % 10);
+				ans += ft_putnumber(va_arg(args, int) % 10);
 			else if (str[i] == 'i')
-				ft_putnumber(va_arg(args, int));
+				ans += ft_putnumber(va_arg(args, int));
 			else if (str[i] == 'u')
-				ft_putnumber(va_arg(args, int));
+				ans += ft_putnumber(va_arg(args, int));
 			else if (str[i] == 'x')
-				ft_puthex(va_arg(args, int), 0);
+				ans += ft_puthex(va_arg(args, int), 0);
 			else if (str[i] == 'X')
-				ft_puthex(va_arg(args, int), 1);
-		}
-		if (str[i])
+				ans += ft_puthex(va_arg(args, int), 1);
 			i++;
+		}
 	}
-	return (0);
+	return (ans);
 }
-/*
+
 #include <stdlib.h>
 
 int	main(void)
 {
 	void	*p;
+	int		*i;
+	int		j;
 
 	p = malloc(0);
-	ft_printf("Print percent: %% \n");
-	ft_printf("Print char: %c\n", 'X');
-	ft_printf("Print string: %s\n", "COOL");
-	ft_printf("Print pointer: %p hmm\n", p);
-	ft_printf("Print dec = %d, num = %i \n", 9, -2147483648);
-	ft_printf("Print hex = %x, HEX = %X \n", 12, 24532);
+	i = malloc(20*sizeof(int));
+	i[0] = -1;
+	i[1] = ft_printf("Print percent: %% \n");
+	i[2] = ft_printf("Print char: %c\n", 'X');
+	i[3] = ft_printf("Print string: %s\n", "COOL");
+	i[4] = ft_printf("Print pointer: %p hmm\n", p);
+	i[5] = ft_printf("Print dec = %d, num = %i \n", 9, -2147483648);
+	i[6] = ft_printf("Print hex = %x, HEX = %X \n", 12, 24532);
 	
-	printf("Print percent: %% \n");
-	printf("Print char: %c\n", 'X');
-	printf("Print string: %s\n", "COOL");
-	printf("Print pointer: %p hmm\n", p);
-	printf("Print dec = %d, num = %i \n", 9, -2147483647);
-	printf("Print hex = %x, HEX = %X \n", 12, 24532);
+	i[7] = printf("Print percent: %% \n");
+	i[8] = printf("Print char: %c\n", 'X');
+	i[9] = printf("Print string: %s\n", "COOL");
+	i[10] = printf("Print pointer: %p hmm\n", p);
+	i[11] = printf("Print dec = %d, num = %i \n", 9, -2147483647);
+	i[12] = printf("Print hex = %x, HEX = %X \n", 12, 24532);
 	
-
+	j = 0;
+	while (j < 13)
+	{
+		printf("output of test %i == %i\n", j, i[j]);
+		j++;
+	}
 	free(p);
+	free(i);
 	return (0);
-}*/
+}
