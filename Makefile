@@ -6,7 +6,7 @@
 #    By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/04 21:13:43 by gostroum          #+#    #+#              #
-#    Updated: 2025/05/11 15:12:41 by gostroum         ###   ########.fr        #
+#    Updated: 2025/05/11 21:42:25 by gostroum         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ CFLAGS = -Wall -Wextra -Werror
 AR = ar -rcs
 RM = rm -f
 
-SOURCES = ft_printf.c
+SOURCES = ft_printf.c ft_printf_utils.c
 
 OBJECTS = $(SOURCES:.c=.o)
 
