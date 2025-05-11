@@ -6,7 +6,7 @@
 /*   By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 11:06:55 by gostroum          #+#    #+#             */
-/*   Updated: 2025/05/11 15:15:30 by gostroum         ###   ########.fr       */
+/*   Updated: 2025/05/11 15:17:51 by gostroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ static void	ft_putpointer(const void *s)
 	ft_puthex(s_conv, 0);
 	ft_putchar('x');
 }
-
 
 int	ft_printf(const char *str, ...)
 {

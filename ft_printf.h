@@ -6,13 +6,13 @@
 /*   By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 15:13:37 by gostroum          #+#    #+#             */
-/*   Updated: 2025/05/11 15:15:09 by gostroum         ###   ########.fr       */
+/*   Updated: 2025/05/11 15:17:29 by gostroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-int ft_printf(const char *str, ...);
+int	ft_printf(const char *str, ...);
 
 #endif
