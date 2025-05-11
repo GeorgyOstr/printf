@@ -6,7 +6,7 @@
 /*   By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 11:06:55 by gostroum          #+#    #+#             */
-/*   Updated: 2025/05/11 14:59:54 by gostroum         ###   ########.fr       */
+/*   Updated: 2025/05/11 15:11:21 by gostroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int	ft_printf(const char *str, ...)
 	}
 	return (0);
 }
-
+/*
 #include <stdlib.h>
 
 int	main(void)
@@ -146,4 +146,4 @@ int	main(void)
 
 	free(p);
 	return (0);
-}
+}*/
