@@ -6,7 +6,7 @@
 /*   By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 11:06:55 by gostroum          #+#    #+#             */
-/*   Updated: 2025/05/11 21:04:26 by gostroum         ###   ########.fr       */
+/*   Updated: 2025/05/11 21:14:16 by gostroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,30 +71,9 @@ static int	ft_puthex(unsigned long n, int c)
 
 static int	ft_putptr(const void *s)
 {
-	unsigned char	s_conv[8];
-	int				i;
-	int				ans;	
-	unsigned char	*s_src;
-	
-	return (ft_putstr("0x") + ft_puthex((unsigned long)s, 0));
-	ans = 0;
-	s_src = (unsigned char *)&s;
 	if (!s)
-		return (ft_putstr("(null)"));
-	i = 0;
-	while (i < 6)
-	{
-		s_conv[i] = s_src[i];
-		i++;
-	}
-	i = 0;
-	ans += ft_putstr("0x");
-	while (i < 6)
-	{
-		ans += ft_puthex(s_conv[i], 0);
-		i++;
-	}
-	return (ans);
+		return (ft_putstr("(nil)"));
+	return (ft_putstr("0x") + ft_puthex((unsigned long)s, 0));
 }
 
 int	ft_printf(const char *str, ...)
@@ -135,7 +114,7 @@ int	ft_printf(const char *str, ...)
 	}
 	return (ans);
 }
-
+/*
 #include <stdlib.h>
 #include <limits.h>
 int	main(void)
@@ -153,6 +132,8 @@ int	main(void)
 	i[4] = ft_printf("Print pointer: %p hmm\n", p);
 	i[5] = ft_printf("Print i1 = %i, num = %i \n", 10, INT_MIN);
 	i[6] = ft_printf("Print hex = %x, HEX = %X \n", -42, 24532);
+	ft_printf("POINTA %p\n", 0);
+	ft_printf("POINTA %s\n", 0);
 	
 	i[7] = printf("Print percent: %% \n");
 	i[8] = printf("Print char: %c\n", 'X');
@@ -160,6 +141,8 @@ int	main(void)
 	i[10] = printf("Print pointer: %p hmm\n", p);
 	i[11] = printf("Print i1 = %i, num = %i \n", 10, INT_MIN);
 	i[12] = printf("Print hex = %x, HEX = %X \n", -42, 24532);
+	printf("POINTA %p\n", 0);
+	printf("POINTA %s\n", 0);
 	j = 0;
 	while (j < 13)
 	{
@@ -169,4 +152,4 @@ int	main(void)
 	free(p);
 	free(i);
 	return (0);
-}
+}*/
