@@ -6,7 +6,7 @@
 /*   By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 11:06:55 by gostroum          #+#    #+#             */
-/*   Updated: 2025/05/11 15:48:41 by gostroum         ###   ########.fr       */
+/*   Updated: 2025/05/11 15:52:57 by gostroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	ft_putstr(const char *s)
 	int	i;
 
 	if (!s)
-		return 0;
+		return (0);
 	i = 0;
 	while (*s)
 		i += ft_putchar(*(s++));
@@ -43,10 +43,7 @@ static int	ft_putnumber(int n)
 	ans = 0;
 	ln = n;
 	if (ln == 0)
-	{
-		ft_putchar('0');
-		return 1;
-	}
+		return (ft_putchar('0'));
 	if (ln < 0)
 	{
 		ft_putchar('-');
@@ -68,10 +65,7 @@ static int	ft_puthex(int n, int c)
 	ln = n;
 	ans = 0;
 	if (ln == 0)
-	{
-		ft_putchar('0');
-		return 1;
-	}
+		return (ft_putchar('0'));
 	if (ln < 0)
 	{
 		ft_putchar('-');
@@ -93,7 +87,7 @@ static int	ft_putpointer(const void *s)
 	size_t	s_conv;
 
 	if (!s)
-		return ft_putstr("(null)");
+		return (ft_putstr("(null)"));
 	s_conv = (size_t)s;
 	return (ft_putstr("0x") + ft_puthex(s_conv, 0) + ft_putchar('x'));
 }
@@ -139,8 +133,8 @@ int	ft_printf(const char *str, ...)
 	return (ans);
 }
 
+/*
 #include <stdlib.h>
-
 int	main(void)
 {
 	void	*p;
@@ -173,4 +167,4 @@ int	main(void)
 	free(p);
 	free(i);
 	return (0);
-}
+}*/
