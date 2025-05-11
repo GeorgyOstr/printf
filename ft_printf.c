@@ -6,7 +6,7 @@
 /*   By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 11:06:55 by gostroum          #+#    #+#             */
-/*   Updated: 2025/05/11 14:55:16 by gostroum         ###   ########.fr       */
+/*   Updated: 2025/05/11 14:59:54 by gostroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,10 @@ static void	ft_puthex(int n, int c)
 	}
 	if (ln > 16)
 		ft_puthex(ln / 16, c);
-	ft_putchar("0123456789abcdefABCDEF"[ln % 16]);
-	(void)c;
+	if (!c)
+		ft_putchar("0123456789abcdef"[ln % 16]);
+	else
+		ft_putchar("0123456789ABCDEF"[ln % 16]);
 }
 
 static void	ft_putpointer(const void *s)
@@ -132,7 +134,16 @@ int	main(void)
 	ft_printf("Print string: %s\n", "COOL");
 	ft_printf("Print pointer: %p hmm\n", p);
 	ft_printf("Print dec = %d, num = %i \n", 9, -2147483648);
-	ft_printf("Print hex = %x, HEX = %X", 12, 24532);
+	ft_printf("Print hex = %x, HEX = %X \n", 12, 24532);
+	
+	printf("Print percent: %% \n");
+	printf("Print char: %c\n", 'X');
+	printf("Print string: %s\n", "COOL");
+	printf("Print pointer: %p hmm\n", p);
+	printf("Print dec = %d, num = %i \n", 9, -2147483647);
+	printf("Print hex = %x, HEX = %X \n", 12, 24532);
+	
+
 	free(p);
 	return (0);
 }
