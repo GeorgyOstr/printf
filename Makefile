@@ -6,11 +6,11 @@
 #    By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/04 21:13:43 by gostroum          #+#    #+#              #
-#    Updated: 2025/05/11 15:10:11 by gostroum         ###   ########.fr        #
+#    Updated: 2025/05/11 15:12:41 by gostroum         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libprintf.a
+NAME = libftprintf.a
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
