@@ -6,7 +6,7 @@
 /*   By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 11:06:55 by gostroum          #+#    #+#             */
-/*   Updated: 2025/05/11 20:57:28 by gostroum         ###   ########.fr       */
+/*   Updated: 2025/05/11 21:04:26 by gostroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	ft_putstr(const char *s)
 	return (i);
 }
 
-static int	ft_putnumber(long n)
+static int	ft_putnbr(long n)
 {
 	int		ans;
 
@@ -48,12 +48,12 @@ static int	ft_putnumber(long n)
 		n = -n;
 	}
 	if (n >= 10)
-		ans += ft_putnumber(n / 10);
+		ans += ft_putnbr(n / 10);
 	ans += ft_putchar(n % 10 + '0');
 	return (ans);
 }
 
-static int	ft_puthex(unsigned int n, int c)
+static int	ft_puthex(unsigned long n, int c)
 {
 	int		ans;
 
@@ -75,7 +75,8 @@ static int	ft_putptr(const void *s)
 	int				i;
 	int				ans;	
 	unsigned char	*s_src;
-
+	
+	return (ft_putstr("0x") + ft_puthex((unsigned long)s, 0));
 	ans = 0;
 	s_src = (unsigned char *)&s;
 	if (!s)
@@ -122,9 +123,9 @@ int	ft_printf(const char *str, ...)
 			else if (str[i] == 'p')
 				ans += ft_putptr(va_arg(args, void *));
 			else if (str[i] == 'd' || str[i] == 'i')
-				ans += ft_putnumber(va_arg(args, int));
+				ans += ft_putnbr(va_arg(args, int));
 			else if (str[i] == 'u')
-				ans += ft_putnumber(va_arg(args, unsigned int));
+				ans += ft_putnbr(va_arg(args, unsigned int));
 			else if (str[i] == 'x')
 				ans += ft_puthex(va_arg(args, unsigned int), 0);
 			else if (str[i] == 'X')
@@ -135,7 +136,6 @@ int	ft_printf(const char *str, ...)
 	return (ans);
 }
 
-/*
 #include <stdlib.h>
 #include <limits.h>
 int	main(void)
@@ -169,4 +169,4 @@ int	main(void)
 	free(p);
 	free(i);
 	return (0);
-}*/
+}
