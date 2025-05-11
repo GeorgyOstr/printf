@@ -6,7 +6,7 @@
 /*   By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 11:06:55 by gostroum          #+#    #+#             */
-/*   Updated: 2025/05/11 15:52:57 by gostroum         ###   ########.fr       */
+/*   Updated: 2025/05/11 15:58:28 by gostroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	ft_putstr(const char *s)
 	int	i;
 
 	if (!s)
-		return (0);
+		return (ft_putstr("(null)"));
 	i = 0;
 	while (*s)
 		i += ft_putchar(*(s++));
@@ -133,7 +133,6 @@ int	ft_printf(const char *str, ...)
 	return (ans);
 }
 
-/*
 #include <stdlib.h>
 int	main(void)
 {
@@ -157,7 +156,7 @@ int	main(void)
 	i[10] = printf("Print pointer: %p hmm\n", p);
 	i[11] = printf("Print dec = %d, num = %i \n", 9, -2147483647);
 	i[12] = printf("Print hex = %x, HEX = %X \n", 12, 24532);
-	
+	printf("%s", NULL);	
 	j = 0;
 	while (j < 13)
 	{
@@ -167,4 +166,4 @@ int	main(void)
 	free(p);
 	free(i);
 	return (0);
-}*/
+}
