@@ -6,7 +6,7 @@
 /*   By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 11:06:55 by gostroum          #+#    #+#             */
-/*   Updated: 2025/05/11 21:25:52 by gostroum         ###   ########.fr       */
+/*   Updated: 2025/05/15 14:03:45 by gostroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,35 @@
 
 int	ft_putchar(char c)
 {
-	if (write(1, &c, 1))
-		return (1);
-	return (0);
+	int	res;
+
+	res = write(1, &c, 1);
+	if (res < 0)
+		return (-100);
+	return (res);
 }
 
 int	ft_putstr(const char *s)
 {
-	int	i;
+	long	i;
+	long	res;
 
 	if (!s)
 		return (ft_putstr("(null)"));
 	i = 0;
 	while (*s)
-		i += ft_putchar(*(s++));
+	{
+		res = ft_putchar(*(s++));
+		i += res;
+		if (res < 0 || i > 2147483647)
+			return (-100);
+	}
 	return (i);
 }
 
 int	ft_putnbr(long n)
 {
-	int		ans;
+	int	ans;
 
 	ans = 0;
 	if (n == 0)
@@ -50,7 +59,7 @@ int	ft_putnbr(long n)
 	return (ans);
 }
 
-int	ft_puthex(unsigned long n, int c)
+int	ft_puthex(unsigned long n, char c)
 {
 	int		ans;
 
@@ -59,7 +68,7 @@ int	ft_puthex(unsigned long n, int c)
 		return (ft_putchar('0'));
 	if (n >= 16)
 		ans += ft_puthex(n / 16, c);
-	if (!c)
+	if (c == 'x')
 		ans += ft_putchar("0123456789abcdef"[n % 16]);
 	else
 		ans += ft_putchar("0123456789ABCDEF"[n % 16]);
@@ -70,5 +79,5 @@ int	ft_putptr(const void *s)
 {
 	if (!s)
 		return (ft_putstr("(nil)"));
-	return (ft_putstr("0x") + ft_puthex((unsigned long)s, 0));
+	return (ft_putstr("0x") + ft_puthex((unsigned long)s, 'x'));
 }

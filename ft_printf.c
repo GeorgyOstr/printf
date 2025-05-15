@@ -6,7 +6,7 @@
 /*   By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 11:06:55 by gostroum          #+#    #+#             */
-/*   Updated: 2025/05/15 12:49:03 by gostroum         ###   ########.fr       */
+/*   Updated: 2025/05/15 14:08:10 by gostroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,23 @@ static int	ft_switch(const char *str, int *i, va_list *args)
 		ans += ft_putnbr(va_arg(*args, int));
 	else if (str[*i] == 'u')
 		ans += ft_putnbr(va_arg(*args, unsigned int));
-	else if (str[*i] == 'x')
-		ans += ft_puthex(va_arg(*args, unsigned int), 0);
-	else if (str[*i] == 'X')
-		ans += ft_puthex(va_arg(*args, unsigned int), 1);
+	else if ((str[*i] == 'x') || (str[*i] == 'X'))
+		ans += ft_puthex(va_arg(*args, unsigned int), str[*i]);
+	else
+		return (-100);
 	(*i)++;
 	return (ans);
+}
+
+static int	check_increment(int ans, int val)
+{
+	long	lans;
+
+	lans = ans;
+	lans += val;
+	if (val < 0 || lans > 2147483647)
+		return (-100);
+	return (ans + val);
 }
 
 int	ft_printf(const char *str, ...)
@@ -54,10 +65,16 @@ int	ft_printf(const char *str, ...)
 	while (str[i])
 	{
 		while (str[i] && str[i] != '%')
-			ans += ft_putchar(str[i++]);
+		{
+			ans = check_increment(ans, ft_putchar(str[i++]));
+			if (ans < 0)
+				return (-1);
+		}
 		if (str[i] && str[i] == '%')
 		{
-			ans += ft_switch(str, &i, &args);
+			ans = check_increment(ans, ft_switch(str, &i, &args));
+			if (ans < 0)
+				return (-1);
 		}
 	}
 	return (ans);
