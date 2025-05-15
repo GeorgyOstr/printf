@@ -6,7 +6,7 @@
 /*   By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 11:06:55 by gostroum          #+#    #+#             */
-/*   Updated: 2025/05/15 14:08:10 by gostroum         ###   ########.fr       */
+/*   Updated: 2025/05/15 14:39:16 by gostroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,12 @@ static int	check_increment(int ans, int val)
 	return (ans + val);
 }
 
+static int	ret_end(int a, va_list *args)
+{
+	va_end(*args);
+	return (a);
+}
+
 int	ft_printf(const char *str, ...)
 {
 	va_list	args;
@@ -68,14 +74,14 @@ int	ft_printf(const char *str, ...)
 		{
 			ans = check_increment(ans, ft_putchar(str[i++]));
 			if (ans < 0)
-				return (-1);
+				return (ret_end(-1, &args));
 		}
 		if (str[i] && str[i] == '%')
 		{
 			ans = check_increment(ans, ft_switch(str, &i, &args));
 			if (ans < 0)
-				return (-1);
+				return (ret_end(-1, &args));
 		}
 	}
-	return (ans);
+	return (ret_end(ans, &args));
 }
