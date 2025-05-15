@@ -6,7 +6,7 @@
 /*   By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 11:06:55 by gostroum          #+#    #+#             */
-/*   Updated: 2025/05/11 21:44:05 by gostroum         ###   ########.fr       */
+/*   Updated: 2025/05/15 12:49:03 by gostroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int	ft_printf(const char *str, ...)
 	int		i;
 	int		ans;
 
+	if (!str)
+		return (-1);
 	i = 0;
 	ans = 0;
 	va_start(args, str);
