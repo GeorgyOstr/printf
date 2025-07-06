@@ -6,7 +6,7 @@
 /*   By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 11:06:55 by gostroum          #+#    #+#             */
-/*   Updated: 2025/05/15 14:03:45 by gostroum         ###   ########.fr       */
+/*   Updated: 2025/07/06 22:32:34 by gostroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ int	ft_putchar(char c)
 {
 	int	res;
 
-	res = write(1, &c, 1);
+	res = 0;
+	while (res == 0)
+		res = write(1, &c, 1);
 	if (res < 0)
 		return (-100);
 	return (res);
