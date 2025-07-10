@@ -6,7 +6,7 @@
 /*   By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 11:06:55 by gostroum          #+#    #+#             */
-/*   Updated: 2025/07/06 22:32:34 by gostroum         ###   ########.fr       */
+/*   Updated: 2025/07/10 22:06:22 by gostroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_putstr(const char *s)
 	{
 		res = ft_putchar(*(s++));
 		i += res;
-		if (res < 0 || i > 2147483647)
+		if (res < 0 || i > INT_MAX)
 			return (-100);
 	}
 	return (i);

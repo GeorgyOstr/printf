@@ -6,13 +6,12 @@
 /*   By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 11:06:55 by gostroum          #+#    #+#             */
-/*   Updated: 2025/07/06 21:06:05 by gostroum         ###   ########.fr       */
+/*   Updated: 2025/07/10 22:05:43 by gostroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdarg.h>
-#include <limits.h>
 
 static int	ft_switch(const char *str, int *i, va_list *args)
 {

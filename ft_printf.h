@@ -6,12 +6,14 @@
 /*   By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 15:13:37 by gostroum          #+#    #+#             */
-/*   Updated: 2025/05/15 13:35:50 by gostroum         ###   ########.fr       */
+/*   Updated: 2025/07/10 22:06:00 by gostroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
+
+# include <limits.h>
 
 int	ft_putchar(char c);
 int	ft_putstr(const char *s);
